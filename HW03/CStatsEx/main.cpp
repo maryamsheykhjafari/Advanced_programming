@@ -1,0 +1,59 @@
+#include <iostream>
+#include"Cstats.h"
+#include<exception>
+using namespace std;
+
+int main()
+{
+    int num_s;
+    cout << "Please Enter Number of Scors: "<<endl;
+    try {
+        cin>>num_s ;
+
+        if(num_s <= 0)
+            throw invalid_argument("The number can't be negative");
+
+
+    }
+    catch (exception& e)
+    {
+        cout<<e.what()<<endl;
+    }
+
+    try {
+
+        float* scores=new float[num_s]  ;
+        for (int i =0 ; i<num_s;i++)
+        {
+
+            cout<<"Please enter scors"<< i+1<<":"<<endl;
+
+            cin>>scores[i];
+
+            if (scores[i]<0 || scores[i] >20)
+            {
+                throw invalid_argument("score most be between 0-20");
+            }
+
+
+
+        }
+
+
+        CStatsEx<float , int > *c1 = new CStatsEx<float,int> (scores,num_s,"students scores");
+        c1->print();
+        c1->update();
+        c1->sort();
+        c1->print();
+
+
+
+    }
+    catch (exception &e)
+    {
+         e.what();
+     }
+
+
+    return 0;
+}
